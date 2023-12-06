@@ -16,7 +16,7 @@ const App = () => {
     fetch(trendingSearchesUrl)
       .then((response) => response.json())
       .then((json) => {
-        console.log("trending searches", json);
+        // console.log("trending searches", json);
         setTrendingSearches(json.data);
       });
   }, []);
