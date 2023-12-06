@@ -9,6 +9,7 @@ type Props = {
 };
 
 const GifGrid = ({ term }: Props) => {
+  const [loading, setLoading] = useState<boolean>(true);
   const apiKey = "GZKGwdu6xlIM0iV58yFKJOFLqj0NLXFw";
   const urlBase = "https://api.giphy.com/v1/gifs";
   const fullUrl = `${urlBase}/search?api_key=${apiKey}&q=${term}`;
@@ -21,7 +22,10 @@ const GifGrid = ({ term }: Props) => {
     const url = term ? fullUrl : trendingUrl;
     fetch(url)
       .then((response) => response.json())
-      .then((json) => setData(json as GifsResult));
+      .then((json) => {
+        setData(json as GifsResult);
+        setLoading(false);
+      });
   }, [term]);
 
   useEffect(() => {
@@ -34,21 +38,27 @@ const GifGrid = ({ term }: Props) => {
   // Define breakpoint columns for Masonry layout
   const breakpointColumnsObj = {
     default: 4,
-    1100: 3,
-    700: 2,
+    1300: 3,
+    900: 2,
     500: 1,
   };
 
   return (
-    <Masonry
-      breakpointCols={breakpointColumnsObj}
-      className="flex"
-      columnClassName="mx-0.5"
-    >
-      {gifData.map((gif) => (
-        <GifPreview key={gif.id} gif={gif} />
-      ))}
-    </Masonry>
+    <>
+      {gifData.length > 0 ? (
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="flex"
+          columnClassName="mx-0.5"
+        >
+          {gifData.map((gif) => (
+            <GifPreview key={gif.id} gif={gif} />
+          ))}
+        </Masonry>
+      ) : (
+        <div>{loading ? "Loading..." : "No results found!"}</div>
+      )}
+    </>
   );
 };
 
