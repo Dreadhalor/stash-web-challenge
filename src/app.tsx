@@ -19,7 +19,6 @@ const App = () => {
       </div>
       <div>{searchTerm}</div>
       <PhotoGrid term={searchTerm} />
-      <img src="https://giphy.com/gifs/test-gw3IWyGkC0rsazTi" alt="test" />
     </div>
   );
 };
