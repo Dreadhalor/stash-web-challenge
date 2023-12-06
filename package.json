@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "test": "echo \"Add your test suite here.\" && exit 1",
+    "test": "echo \"Visual testing can primarily be done in Storybook. Run \"npm run storybook\" to view the Storybook.\" && exit 1",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
