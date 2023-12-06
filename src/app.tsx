@@ -11,13 +11,15 @@ const App = () => {
       Hi, this will be more interesting later
       <div className="flex gap-2">
         <Input
+          type="search"
           placeholder="Search for a gif!"
           onChange={(term) => setInputState(term.target.value)}
         />
         <Button onClick={() => setSearchTerm(inputState)}>Search</Button>
       </div>
       <div>{searchTerm}</div>
-      <PhotoGrid />
+      <PhotoGrid term={searchTerm} />
+      <img src="https://giphy.com/gifs/test-gw3IWyGkC0rsazTi" alt="test" />
     </div>
   );
 };
