@@ -4,13 +4,14 @@ import { Button, Input } from "./components/ui";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
 const App = () => {
-  const [inputState, setInputState] = useState<string>("");
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [inputState, setInputState] = useState<string>(""); // State for input field
+  const [searchTerm, setSearchTerm] = useState<string>(""); // State for search term
   const [trendingSearches, setTrendingSearches] = useState<string[]>([]);
 
   const apiKey = "GZKGwdu6xlIM0iV58yFKJOFLqj0NLXFw";
   const urlBase = "https://api.giphy.com/v1";
   const trendingSearchesUrl = `${urlBase}/trending/searches?api_key=${apiKey}`;
+
   useEffect(() => {
     fetch(trendingSearchesUrl)
       .then((response) => response.json())
@@ -19,6 +20,11 @@ const App = () => {
         setTrendingSearches(json.data);
       });
   }, []);
+
+  const handleSearchTermClick = (term: string) => {
+    setInputState(term); // Update input field state
+    setSearchTerm(term); // Update search term state
+  };
 
   return (
     <div className="flex min-h-full w-full flex-col items-center gap-2 px-32 py-12">
@@ -29,9 +35,24 @@ const App = () => {
           type="search"
           placeholder="Search for a gif!"
           className="flex-1"
-          onChange={(term) => setInputState(term.target.value)}
+          value={inputState} // To propagate changes back to the input field
+          onChange={(e) => setInputState(e.target.value)}
         />
         <Button onClick={() => setSearchTerm(inputState)}>Search</Button>
+      </div>
+      <div className="flex w-full flex-wrap content-start items-center gap-2 text-xl">
+        {trendingSearches.map((term) => (
+          <Button
+            key={term} // Add a key for each item
+            variant={term === searchTerm ? "default" : "secondary"}
+            size="sm"
+            className="gap-1 px-2"
+            onClick={() => handleSearchTermClick(term)}
+          >
+            <FaArrowTrendUp />
+            {term}
+          </Button>
+        ))}
       </div>
       <div className="flex w-full flex-wrap content-start items-center gap-2 text-xl">
         {searchTerm ? (
@@ -42,17 +63,6 @@ const App = () => {
             Trending
           </>
         )}
-        {trendingSearches.map((term) => (
-          <Button
-            variant="secondary"
-            size="sm"
-            className="gap-1 px-2"
-            onClick={() => setSearchTerm(term)}
-          >
-            <FaArrowTrendUp />
-            {term}
-          </Button>
-        ))}
       </div>
       <GifGrid term={searchTerm} />
     </div>
