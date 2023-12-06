@@ -50,7 +50,7 @@ const App = () => {
           </>
         )}
       </div>
-      <GifGrid term={searchTerm} />
+      <GifGrid term={searchTerm} apiKey={apiKey} />
     </div>
   );
 };

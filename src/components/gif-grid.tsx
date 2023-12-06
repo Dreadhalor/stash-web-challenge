@@ -6,20 +6,20 @@ import { GifPreview } from "./gif-preview";
 
 type Props = {
   term?: string;
+  apiKey: string;
 };
 
-const GifGrid = ({ term }: Props) => {
+const GifGrid = ({ term, apiKey }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const apiKey = "GZKGwdu6xlIM0iV58yFKJOFLqj0NLXFw";
   const urlBase = "https://api.giphy.com/v1/gifs";
-  const fullUrl = `${urlBase}/search?api_key=${apiKey}&q=${term}`;
+  const searchUrl = `${urlBase}/search?api_key=${apiKey}&q=${term}`;
   const trendingUrl = `${urlBase}/trending?api_key=${apiKey}`;
 
   const [data, setData] = useState<GifsResult>({} as GifsResult);
   const [gifData, setGifData] = useState<IGif[]>([]);
 
   useEffect(() => {
-    const url = term ? fullUrl : trendingUrl;
+    const url = term ? searchUrl : trendingUrl;
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
