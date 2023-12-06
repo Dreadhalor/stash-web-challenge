@@ -1,8 +1,10 @@
-
 const App = () => {
   return (
-    <div>Hi, this will be more interesting later</div>
-  )
-}
+    <div className="flex h-full w-full flex-col border-4">
+      <div className="text-2xl">HIII</div>
+      Hi, this will be more interesting later
+    </div>
+  );
+};
 
-export { App }
+export { App };
