@@ -29,7 +29,7 @@ const App = () => {
   return (
     <div className="flex min-h-full w-full flex-col items-center gap-2 px-32 py-12">
       <h1>Stash GIFs</h1>
-      Hi, this will be more interesting later
+      Wouldn't it be funny if I didn't delete this filler text?
       <div className="flex w-full gap-2">
         <Input
           type="search"

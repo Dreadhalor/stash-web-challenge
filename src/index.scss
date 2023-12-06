@@ -98,6 +98,13 @@
 }
 
 @layer components {
+  .body-x-small {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 425;
+    line-height: 16px;
+    letter-spacing: 0;
+  }
   .caption-1 {
     font-family: var(--font-sans);
     font-size: 12px;
