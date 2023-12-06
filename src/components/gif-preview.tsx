@@ -1,5 +1,13 @@
 import { IGif } from "@giphy/js-types";
-import { Button, Dialog, DialogContent, DialogTrigger } from "@/components/ui";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { MdVerified } from "react-icons/md";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa6";
@@ -92,28 +100,40 @@ const ActionButtons = ({
       )}
     >
       <div className="mx-3 mb-auto mt-3 flex items-center gap-1 text-white">
-        <Button
-          variant="outline"
-          size="icon"
-          className="pointer-events-auto text-base"
-          onClick={(e) => {
-            e.stopPropagation();
-            window.open(gif.url, "_blank");
-          }}
-        >
-          <FaExternalLinkAlt />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          className="pointer-events-auto text-base"
-          onClick={(e) => {
-            e.stopPropagation();
-            copyToClipboard(gif.images.original.mp4);
-          }}
-        >
-          {linkCopiedSuccessfully ? <FaClipboardCheck /> : <FaClipboard />}
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              className="pointer-events-auto text-base"
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(gif.url, "_blank");
+              }}
+            >
+              <FaExternalLinkAlt />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent sideOffset={4}>Open in new tab</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              className="pointer-events-auto text-base"
+              onClick={(e) => {
+                e.stopPropagation();
+                copyToClipboard(gif.images.original.mp4);
+              }}
+            >
+              {linkCopiedSuccessfully ? <FaClipboardCheck /> : <FaClipboard />}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent sideOffset={4}>
+            Copy direct url to clipboard
+          </TooltipContent>
+        </Tooltip>
       </div>
     </div>
   );

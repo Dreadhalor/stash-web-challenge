@@ -27,8 +27,8 @@ const App = () => {
   };
 
   return (
-    <div className="flex min-h-full w-full flex-col items-center gap-2 px-32 py-12">
-      <h1>Stash GIFs</h1>
+    <div className="flex min-h-full w-full flex-col items-center gap-2 px-8 py-12 sm:px-24 md:px-32">
+      <h1>Stash GIFs by Scott Hetrick</h1>
       Wouldn't it be funny if I didn't delete this filler text?
       <SearchBar
         inputState={inputState}
