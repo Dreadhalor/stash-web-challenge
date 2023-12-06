@@ -4,35 +4,50 @@
 
 @layer base {
   :root {
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 48px;
+      letter-spacing: 0;
+    }
+
+    --font-sans: filson-pro, sans-serif;
+    --font-serif: moret, serif;
+
+    /* color palette */
+    --ash: 330 6% 13%;
+    --ash-medium: 0 0% 45%;
+    --ash-light: 0 0% 65%;
+    --ash-lighter: 0 0% 91%;
+    --ash-lightest: 0 0% 98%;
+    --beryl: 166 60% 53%;
+    --blueish: 227 27% 52%;
+    --danger: 0 62% 50%;
+
+    // theme colors
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --foreground: var(--ash);
+    --muted: var(--ash-lighter);
+    --muted-foreground: var(--ash-medium);
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
+    --popover-foreground: var(--ash);
+    --border: var(--ash-lighter);
+    --input: var(--ash-light);
+    --card: 0 0% 100%;
+    --card-foreground: var(--ash);
+    --primary: var(--blueish);
+    --primary-foreground: 0 0% 100%; // white
+    --secondary: var(--ash-lighter);
     --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
     --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --accent-foreground: var(--ash);
+    --destructive: var(--danger);
+    --destructive-foreground: 0 0% 100%; // white
+    --success: var(--beryl);
+    --success-foreground: 0 0% 0%; // white
+    --ring: var(--blueish);
+    --radius: 0.5em;
   }
 
   .dark {
@@ -79,6 +94,16 @@
   body,
   #root {
     height: 100%;
-    overflow: hidden;
+  }
+}
+
+@layer components {
+  .caption-1 {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
   }
 }
