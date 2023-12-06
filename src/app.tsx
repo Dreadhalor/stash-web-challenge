@@ -36,7 +36,12 @@ const App = () => {
           placeholder="Search for a gif!"
           className="flex-1"
           value={inputState} // To propagate changes back to the input field
-          onChange={(e) => setInputState(e.target.value)}
+          onChange={(e) => {
+            setInputState(e.target.value);
+            if (e.target.value === "") {
+              setSearchTerm("");
+            }
+          }}
         />
         <Button onClick={() => setSearchTerm(inputState)}>Search</Button>
       </div>
