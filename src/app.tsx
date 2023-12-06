@@ -20,8 +20,10 @@ const App = () => {
   }, []);
 
   const handleSearchTermClick = (term: string) => {
-    setInputState(term); // Update input field state
-    setSearchTerm(term); // Update search term state
+    let newSearchTerm = term;
+    if (term === searchTerm) newSearchTerm = "";
+    setInputState(newSearchTerm); // Update input field state
+    setSearchTerm(newSearchTerm); // Update search term state
   };
 
   return (
