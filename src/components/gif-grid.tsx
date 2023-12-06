@@ -32,7 +32,6 @@ const GifGrid = ({ term }: Props) => {
     if (data.data) {
       setGifData(data.data);
     }
-    // console.log("data changed", data);
   }, [data]);
 
   // Define breakpoint columns for Masonry layout

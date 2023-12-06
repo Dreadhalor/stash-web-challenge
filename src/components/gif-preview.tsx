@@ -149,7 +149,7 @@ const GifPreview = ({ gif }: Props) => {
 
   return (
     <Dialog>
-      <DialogTrigger asChild onClick={() => console.log("clicked:", gif)}>
+      <DialogTrigger asChild>
         <div
           className="group relative mb-1 cursor-pointer overflow-hidden rounded-lg"
           onPointerLeave={() => setLinkCopiedSuccessfully(false)}
