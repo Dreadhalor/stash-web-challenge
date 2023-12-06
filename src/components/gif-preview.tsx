@@ -23,6 +23,13 @@ const UserInfo = ({ gif }: { gif: IGif }) => {
   const avatar = gif.user?.avatar_url;
   const displayName = getDisplayName(gif);
   const isVerified = gif?.user?.is_verified;
+  const profileUrl =
+    (gif?.user as any)?.profile_url || gif?.user?.website_url || gif.source;
+  const handleProfileClick = (e: any) => {
+    if (!profileUrl) return;
+    e.stopPropagation();
+    window.open(profileUrl, "_blank");
+  };
 
   return (
     <div
@@ -33,8 +40,22 @@ const UserInfo = ({ gif }: { gif: IGif }) => {
       )}
     >
       <div className="mx-3 mb-3 mt-auto flex items-center text-xs text-white">
-        {avatar && <img src={avatar} className="mr-2 h-8 w-8" />}
-        <span className="mr-1">{displayName}</span>
+        {avatar && (
+          <img
+            src={avatar}
+            className="peer pointer-events-auto mr-2 h-8 w-8"
+            onClick={handleProfileClick}
+          />
+        )}
+        <span
+          className={cn(
+            "pointer-events-auto mr-1",
+            profileUrl && "hover:font-bold peer-hover:font-bold",
+          )}
+          onClick={handleProfileClick}
+        >
+          {displayName}
+        </span>
         {isVerified && <MdVerified />}
       </div>
     </div>
