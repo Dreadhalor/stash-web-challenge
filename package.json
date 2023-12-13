@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "test": "echo \"Visual testing can primarily be done in Storybook. Run \"npm run storybook\" to view the Storybook.\" && exit 1",
+    "test": "vitest",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -43,6 +43,7 @@
     "@storybook/react": "^7.6.3",
     "@storybook/react-vite": "^7.6.3",
     "@storybook/test": "^7.6.3",
+    "@testing-library/react": "^14.1.2",
     "@types/node": "^20.10.3",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
@@ -54,6 +55,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
     "eslint-plugin-storybook": "^0.6.15",
+    "jsdom": "^23.0.1",
     "postcss": "^8.4.32",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.9",
@@ -61,6 +63,7 @@
     "storybook": "^7.6.3",
     "tailwindcss": "^3.3.6",
     "typescript": "^5.2.2",
-    "vite": "^5.0.0"
+    "vite": "^5.0.0",
+    "vitest": "^1.0.4"
   }
 }

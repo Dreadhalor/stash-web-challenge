@@ -19,14 +19,16 @@ const GifGrid = ({ term, apiKey }: Props) => {
   const [gifData, setGifData] = useState<IGif[]>([]);
 
   useEffect(() => {
+    setLoading((_) => true);
     const url = term ? searchUrl : trendingUrl;
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
+        if (json.meta.status !== 200) alert(json.meta.msg);
         setData(json as GifsResult);
         setLoading(false);
       });
-  }, [term]);
+  }, [term]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (data.data) {
@@ -44,19 +46,21 @@ const GifGrid = ({ term, apiKey }: Props) => {
 
   return (
     <>
-      {gifData.length > 0 ? (
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="flex"
-          columnClassName="mx-0.5"
-        >
-          {gifData.map((gif) => (
-            <GifPreview key={gif.id} gif={gif} />
-          ))}
-        </Masonry>
-      ) : (
-        <div>{loading ? "Loading..." : "No results found!"}</div>
-      )}
+      {loading && <div>Loading...</div>}
+      {!loading &&
+        (gifData.length > 0 ? (
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className="flex"
+            columnClassName="mx-0.5"
+          >
+            {gifData.map((gif) => (
+              <GifPreview key={gif.id} gif={gif} />
+            ))}
+          </Masonry>
+        ) : (
+          <div>No results found!</div>
+        ))}
     </>
   );
 };
