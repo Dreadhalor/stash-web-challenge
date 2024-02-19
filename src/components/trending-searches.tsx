@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui";
+import { Button } from "dread-ui";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
 type Props = {

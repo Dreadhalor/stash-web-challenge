@@ -1,5 +1,5 @@
-import { Button, Input } from "@/components/ui";
-import { cn } from "@/lib/utils";
+import { Button, Input } from "dread-ui";
+import { cn } from "@repo/utils";
 
 type Props = {
   inputState: string;

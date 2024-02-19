@@ -7,8 +7,8 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui";
-import { cn } from "@/lib/utils";
+} from "dread-ui";
+import { cn } from "@repo/utils";
 import { MdVerified } from "react-icons/md";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa6";
 import { FaExternalLinkAlt } from "react-icons/fa";

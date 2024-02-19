@@ -27,9 +27,9 @@ const App = () => {
   };
 
   return (
-    <div className="flex min-h-full w-full flex-col items-center gap-2 px-8 py-12 sm:px-24 md:px-32">
-      <h1>Stash GIFs by Scott Hetrick</h1>
-      Wouldn't it be funny if I didn't delete this filler text?
+    <div className="flex h-full w-full flex-col items-center gap-2 overflow-auto px-8 py-12 sm:px-24 md:px-32">
+      <h1>GIFster by Scott Hetrick</h1>
+      We're not GIPHY, damn it
       <SearchBar
         inputState={inputState}
         setInputState={setInputState}
