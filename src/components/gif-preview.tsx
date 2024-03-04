@@ -1,4 +1,4 @@
-import { IGif } from "@giphy/js-types";
+import { IGif } from '@giphy/js-types';
 import {
   Button,
   Dialog,
@@ -7,15 +7,16 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "dread-ui";
-import { cn } from "@repo/utils";
-import { MdVerified } from "react-icons/md";
-import { FaClipboard, FaClipboardCheck } from "react-icons/fa6";
-import { FaExternalLinkAlt } from "react-icons/fa";
-import { useState } from "react";
+  useAchievements,
+} from 'dread-ui';
+import { cn } from '@repo/utils';
+import { MdVerified } from 'react-icons/md';
+import { FaClipboard, FaClipboardCheck } from 'react-icons/fa6';
+import { FaExternalLinkAlt } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 
 const getImagePreview = (gif: any) => {
-  return gif.images.preview.mp4 || gif.images.original.mp4 || "";
+  return gif.images.preview.mp4 || gif.images.original.mp4 || '';
 };
 const getDisplayName = (gif: IGif) => {
   return (
@@ -23,7 +24,7 @@ const getDisplayName = (gif: IGif) => {
     gif?.username ||
     gif?.source_tld ||
     gif?.title ||
-    ""
+    ''
   );
 };
 
@@ -36,29 +37,32 @@ const UserInfo = ({ gif }: { gif: IGif }) => {
   const handleProfileClick = (e: any) => {
     if (!profileUrl) return;
     e.stopPropagation();
-    window.open(profileUrl, "_blank");
+    unlockAchievementById('poster_profile', 'gifster');
+    window.open(profileUrl, '_blank');
   };
+
+  const { unlockAchievementById } = useAchievements();
 
   return (
     <div
       className={cn(
-        "pointer-events-none absolute bottom-0 left-0 right-0 flex h-[60px]",
-        "bg-gradient-to-b from-transparent to-black",
-        "opacity-0 transition-all duration-200 group-hover:opacity-100",
+        'pointer-events-none absolute bottom-0 left-0 right-0 flex h-[60px]',
+        'bg-gradient-to-b from-transparent to-black',
+        'opacity-0 transition-all duration-200 group-hover:opacity-100',
       )}
     >
-      <div className="mx-3 mb-3 mt-auto flex items-center text-xs text-white">
+      <div className='mx-3 mb-3 mt-auto flex items-center text-xs text-white'>
         {avatar && (
           <img
             src={avatar}
-            className="peer pointer-events-auto mr-2 h-8 w-8"
+            className='peer pointer-events-auto mr-2 h-8 w-8'
             onClick={handleProfileClick}
           />
         )}
         <span
           className={cn(
-            "pointer-events-auto mr-1",
-            profileUrl && "hover:font-bold peer-hover:font-bold",
+            'pointer-events-auto mr-1',
+            profileUrl && 'hover:font-bold peer-hover:font-bold',
           )}
           onClick={handleProfileClick}
         >
@@ -79,6 +83,8 @@ const ActionButtons = ({
   linkCopiedSuccessfully: boolean;
   setLinkCopiedSuccessfully: (linkCopiedSuccessfully: boolean) => void;
 }) => {
+  const { unlockAchievementById } = useAchievements();
+
   const copyToClipboard = (gifUrl: string) => {
     navigator.clipboard
       .writeText(gifUrl)
@@ -86,7 +92,7 @@ const ActionButtons = ({
         setLinkCopiedSuccessfully(true);
       })
       .catch((err) => {
-        console.error("Failed to copy GIF URL:", err);
+        console.error('Failed to copy GIF URL:', err);
         // Handle errors (e.g., clipboard permissions)
         setLinkCopiedSuccessfully(false);
       });
@@ -95,20 +101,21 @@ const ActionButtons = ({
   return (
     <div
       className={cn(
-        "pointer-events-none absolute inset-0 flex justify-end",
-        "opacity-0 transition-all duration-200 group-hover:opacity-100",
+        'pointer-events-none absolute inset-0 flex justify-end',
+        'opacity-0 transition-all duration-200 group-hover:opacity-100',
       )}
     >
-      <div className="mx-3 mb-auto mt-3 flex items-center gap-1 text-white">
+      <div className='mx-3 mb-auto mt-3 flex items-center gap-1 text-white'>
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant="outline"
-              size="icon"
-              className="pointer-events-auto text-base"
+              variant='outline'
+              size='icon'
+              className='pointer-events-auto text-base'
               onClick={(e) => {
                 e.stopPropagation();
-                window.open(gif.url, "_blank");
+                unlockAchievementById('external_source', 'gifster');
+                window.open(gif.url, '_blank');
               }}
             >
               <FaExternalLinkAlt />
@@ -119,9 +126,9 @@ const ActionButtons = ({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant="outline"
-              size="icon"
-              className="pointer-events-auto text-base"
+              variant='outline'
+              size='icon'
+              className='pointer-events-auto text-base'
               onClick={(e) => {
                 e.stopPropagation();
                 copyToClipboard(gif.images.original.mp4);
@@ -146,12 +153,23 @@ type Props = {
 const GifPreview = ({ gif }: Props) => {
   const [linkCopiedSuccessfully, setLinkCopiedSuccessfully] =
     useState<boolean>(false);
+  const { unlockAchievementById } = useAchievements();
+
+  useEffect(() => {
+    if (linkCopiedSuccessfully)
+      unlockAchievementById('copy_gif_url', 'gifster');
+  }, [linkCopiedSuccessfully, unlockAchievementById]);
 
   return (
-    <Dialog>
+    <Dialog
+      onOpenChange={(open) => {
+        if (open) unlockAchievementById('open_gif', 'gifster');
+        return open;
+      }}
+    >
       <DialogTrigger asChild>
         <div
-          className="group relative mb-1 cursor-pointer overflow-hidden rounded-lg"
+          className='group relative mb-1 cursor-pointer overflow-hidden rounded-lg'
           onPointerLeave={() => setLinkCopiedSuccessfully(false)}
         >
           <video
@@ -160,7 +178,7 @@ const GifPreview = ({ gif }: Props) => {
             autoPlay
             muted
             loop
-            className="w-full"
+            className='w-full'
           />
           <UserInfo gif={gif} />
           <ActionButtons
@@ -170,14 +188,14 @@ const GifPreview = ({ gif }: Props) => {
           />
         </div>
       </DialogTrigger>
-      <DialogContent className="max-h-screen overflow-y-auto border-0 p-0">
+      <DialogContent className='max-h-screen overflow-y-auto border-0 p-0'>
         <video
           src={gif.images.original.mp4}
           playsInline
           autoPlay
           muted
           loop
-          className="w-full rounded-lg"
+          className='w-full rounded-lg'
         />
       </DialogContent>
     </Dialog>

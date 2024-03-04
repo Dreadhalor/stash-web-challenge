@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import Masonry from "react-masonry-css";
-import { GifsResult } from "@giphy/js-fetch-api";
-import { IGif } from "@giphy/js-types";
-import { GifPreview } from "./gif-preview";
+import { useEffect, useState } from 'react';
+import Masonry from 'react-masonry-css';
+import { GifsResult } from '@giphy/js-fetch-api';
+import { IGif } from '@giphy/js-types';
+import { GifPreview } from './gif-preview';
+import { useAchievements } from 'dread-ui';
 
 type Props = {
   term?: string;
@@ -11,12 +12,14 @@ type Props = {
 
 const GifGrid = ({ term, apiKey }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const urlBase = "https://api.giphy.com/v1/gifs";
+  const urlBase = 'https://api.giphy.com/v1/gifs';
   const searchUrl = `${urlBase}/search?api_key=${apiKey}&q=${term}`;
   const trendingUrl = `${urlBase}/trending?api_key=${apiKey}`;
 
   const [data, setData] = useState<GifsResult>({} as GifsResult);
   const [gifData, setGifData] = useState<IGif[]>([]);
+
+  const { unlockAchievementById } = useAchievements();
 
   useEffect(() => {
     setLoading((_) => true);
@@ -36,6 +39,11 @@ const GifGrid = ({ term, apiKey }: Props) => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (term && !gifData.length && !loading)
+      unlockAchievementById('no_results', 'gifster');
+  }, [term, gifData, loading, unlockAchievementById]);
+
   // Define breakpoint columns for Masonry layout
   const breakpointColumnsObj = {
     default: 4,
@@ -51,8 +59,8 @@ const GifGrid = ({ term, apiKey }: Props) => {
         (gifData.length > 0 ? (
           <Masonry
             breakpointCols={breakpointColumnsObj}
-            className="flex"
-            columnClassName="mx-0.5"
+            className='flex'
+            columnClassName='mx-0.5'
           >
             {gifData.map((gif) => (
               <GifPreview key={gif.id} gif={gif} />
