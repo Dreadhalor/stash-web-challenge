@@ -114,7 +114,6 @@ const ActionButtons = ({
               className='pointer-events-auto text-base'
               onClick={(e) => {
                 e.stopPropagation();
-                unlockAchievementById('external_source', 'gifster');
                 window.open(gif.url, '_blank');
               }}
             >
