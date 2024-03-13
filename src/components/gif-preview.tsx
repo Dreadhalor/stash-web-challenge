@@ -83,8 +83,6 @@ const ActionButtons = ({
   linkCopiedSuccessfully: boolean;
   setLinkCopiedSuccessfully: (linkCopiedSuccessfully: boolean) => void;
 }) => {
-  const { unlockAchievementById } = useAchievements();
-
   const copyToClipboard = (gifUrl: string) => {
     navigator.clipboard
       .writeText(gifUrl)
