@@ -22,7 +22,7 @@ const GifGrid = ({ term, apiKey }: Props) => {
   const { unlockAchievementById } = useAchievements();
 
   useEffect(() => {
-    setLoading((_) => true);
+    setLoading(() => true);
     const url = term ? searchUrl : trendingUrl;
     fetch(url)
       .then((response) => response.json())

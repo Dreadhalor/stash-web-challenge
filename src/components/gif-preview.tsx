@@ -15,6 +15,7 @@ import { FaClipboard, FaClipboardCheck } from 'react-icons/fa6';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getImagePreview = (gif: any) => {
   return gif.images.preview.mp4 || gif.images.original.mp4 || '';
 };
@@ -33,7 +34,9 @@ const UserInfo = ({ gif }: { gif: IGif }) => {
   const displayName = getDisplayName(gif);
   const isVerified = gif?.user?.is_verified;
   const profileUrl =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (gif?.user as any)?.profile_url || gif?.user?.website_url || gif.source;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleProfileClick = (e: any) => {
     if (!profileUrl) return;
     e.stopPropagation();
