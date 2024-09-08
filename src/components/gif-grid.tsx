@@ -29,8 +29,13 @@ const GifGrid = ({ term, apiKey }: Props) => {
       .then((json) => {
         if (json.meta.status !== 200) alert(json.meta.msg);
         setData(json as GifsResult);
-        setLoading(false);
-      });
+      })
+      .catch((err) => {
+        // offline, or some other error
+        alert(err);
+        setData({ data: [] as IGif[] } as GifsResult);
+      })
+      .finally(() => setLoading(false));
   }, [term]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
